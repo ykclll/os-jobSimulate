@@ -9,12 +9,11 @@
 
 并在表后输出*平均周转时间*   
 
-job.h:易科成 王昕 (done)  
-HRRN.h:易科成 (done)  
-FCFS.h:王昕  (done)
-SJF.h:瞿进涛  (done)  
-Main.c:易科成  (done)
-SJPplus.h:易科成 王昕 瞿进涛 (done)
+job.h:ykc wx (done)  
+HRRN.h:ykc(done)  
+FCFS.h:wx(done)
+SJF.h:qjt(done)  
+Main.c:ykc(done)
+SJPplus.h:ykc qjt wx(done)
 
-txt文件格式：每个作业一行 每行分别为：作业编号 到达时间 作业长度
-
+txt文件格式:
