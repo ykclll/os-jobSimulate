@@ -59,6 +59,7 @@ void SJFplus(JOB job[], int quantity) {
             }
             if (job[runIndex].remainNeedTime > job[reachIndex].needTime && reachIndex != -1) {
                 printf("%-8d\t%-8d\t%-8d\t\t(被挂起)\n", job[runIndex].id, job[runIndex].reachTime, job[runIndex].startTime);
+                wirtExcel(job, 4, runIndex);
                 runIndex = reachIndex;
             } else {
                 reachIndex = getReachTask(job, quantity, currentTime);
@@ -71,6 +72,7 @@ void SJFplus(JOB job[], int quantity) {
                 job[runIndex].runtime = currentTime - job[runIndex].reachTime;
                 roundTime += job[runIndex].runtime;
                 printf("%-8d\t%-8d\t%-8d\t%-8d\n", job[runIndex].id, job[runIndex].reachTime, job[runIndex].startTime, job[runIndex].runtime);
+                wirtExcel(job, 4, runIndex);
                 runIndex = getNextTask(job, quantity, currentTime);
                 break;
             }

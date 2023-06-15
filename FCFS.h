@@ -30,6 +30,7 @@ void FCFS(JOB job[], int quantity)
     for(int i =0;i<quantity;i++)
     {
         printf("%-8d\t%-8d\t%-8d\t%-8d\n",job[i].id,job[i].reachTime,job[i].endtime-job[i].needTime,job[i].runtime);
+        wirtExcel(job, 2, i);
         sum_runtime = sum_runtime +job[i].runtime;
     }
     averruntime = sum_runtime*1.0/quantity;
