@@ -57,8 +57,11 @@ void sort_reachTime(JOB *job) {
 
 //读取作业信息并输出
 void readJOBdata(JOB *job) {
+    char filename[20];
+    printf("请输入测试文件名:\n");
+    scanf("%s", filename);
     FILE* file;
-    file = fopen("job.txt", "rw");
+    file = fopen(filename, "rw");
     if (file != NULL) {
     int i = 0;
         while (!feof(file)) {
@@ -68,7 +71,8 @@ void readJOBdata(JOB *job) {
             i++;
         }
     } else {
-        printf("打开文件失败");
+        printf("打开文件失败,请检查输入文件名");
+        exit(0);
     }
 }
 
