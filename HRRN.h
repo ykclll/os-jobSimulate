@@ -55,7 +55,7 @@ void HRRN(JOB job[], int quantity) {
         }
 
         printf("%-8d\t%-8d\t%-8d\t%-8d\t%-8d\n", job[index2].id, job[index2].reachTime, job[index2].startTime, job[index2].waitTime, job[index2].runtime);
-        wirtExcel(job, 1, index2);
+        wirtExcel(job, 1, index2, 0);
         roundTime2 = roundTime2 + job[index2].waitTime+job[index2].needTime; //更新总周转时间
         job[index2].visit = 1;
         index2 = calculateRR(job, currentTime2); //更新当前响应比最大的job，准备下一轮循环
@@ -63,4 +63,5 @@ void HRRN(JOB job[], int quantity) {
     printf("------------------------------------------------------------------------\n");
     printf("总周转时间:%d\n", roundTime2);
     printf("平均周转时间:%.2lf\n\n", (double)roundTime2 / (double)quantity);
+    wirtExcel(job, 5, 0, (double)roundTime2 / (double)quantity);
 }

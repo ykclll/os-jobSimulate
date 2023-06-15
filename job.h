@@ -91,35 +91,44 @@ void showJobs(JOB job[]) {
 }
 
 //将输出结果导出到Excel中
-void wirtExcel(JOB job[], int choice, int index) {
+void wirtExcel(JOB job[], int choice, int index, double roundTime) {
     FILE *fp = NULL;
     static int a = 0, b = 0, c = 0, d = 0;
     fp = fopen("output.csv", "a");
     if (choice == 1) {
         if (a == 0) {
             fprintf(fp, "\nHRRN\njobID,reachTime,startTime,waitTime,roundTime\n");
+            // fprintf(fp, "AverageRoundTime:,%.2lf\n", roundTime);
             a++;
         }
         fprintf(fp, "%d,%d,%d,%d,%d\n", job[index].id, job[index].reachTime, job[index].startTime, job[index].waitTime, job[index].runtime);
+        
     } else if (choice == 2) {
         if (b == 0) {
             fprintf(fp, "\nFCFS\njobID,reachTime,startTime,roundTime\n");
+            // fprintf(fp, "AverageRoundTime:,%.2lf\n", roundTime);
             b++;
         }
         fprintf(fp, "%d,%d,%d,%d\n",job[index].id,job[index].reachTime,job[index].endtime-job[index].needTime,job[index].runtime);
+        
     } else if (choice == 3) {
         if (c == 0) {
             fprintf(fp, "\nSJF\njobID,reachTime,runTime,startTime,roundTime\n");
+            // fprintf(fp, "AverageRoundTime:,%.2lf\n", roundTime);
             c++;
         }
         fprintf(fp, "%d,%d,%d,%d,%d\n",
             job[index].id, job[index].reachTime, job[index].needTime, job[index].endtime, job[index].runtime);
+        
     } else if (choice == 4) {
         if (d == 0) {
             fprintf(fp, "\nPSJF\njobID,reachTime,startTime,roundTime\n");
+            // fprintf(fp, "AverageRoundTime:,%.2lf\n", roundTime);
             d++;
         }
         fprintf(fp, "%d,%d,%d,%d\n", job[index].id, job[index].reachTime, job[index].startTime, job[index].runtime);
+    } else if (choice == 5) {
+        fprintf(fp, "AverageRoundTime:,%.2lf\n", roundTime);
     }
     fclose(fp);
 }

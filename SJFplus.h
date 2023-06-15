@@ -1,10 +1,10 @@
 #include "job.h"
 
-int getReachTask(JOB job[], int quantity, int currentTime) {
+int getReachTask(JOB job[], int quantity, int currentTime, int runIndex) {
     int minReachTime = __INT_MAX__;
     int index = -1;
     for (int i = 0; i < quantity; i++) {
-        if (job[i].reached != 1 && job[i].reachTime < minReachTime && job[i].reachTime >= currentTime) {
+        if (job[i].reached != 1 && job[i].reachTime < minReachTime && job[i].reachTime < (currentTime+job[runIndex].remainNeedTime)) {
             job[i].reached = 1;          
             minReachTime = job[i].reachTime;
             index = i;
@@ -50,7 +50,7 @@ void SJFplus(JOB job[], int quantity) {
             作业运行...
         */
         job[runIndex].reached = 1;
-        reachIndex = getReachTask(job, quantity, currentTime);
+        reachIndex = getReachTask(job, quantity, currentTime, runIndex);
 
         while(1) {
             if (reachIndex != -1) {
@@ -59,10 +59,10 @@ void SJFplus(JOB job[], int quantity) {
             }
             if (job[runIndex].remainNeedTime > job[reachIndex].needTime && reachIndex != -1) {
                 printf("%-8d\t%-8d\t%-8d\t\t(被挂起)\n", job[runIndex].id, job[runIndex].reachTime, job[runIndex].startTime);
-                wirtExcel(job, 4, runIndex);
+                wirtExcel(job, 4, runIndex, 0);
                 runIndex = reachIndex;
             } else {
-                reachIndex = getReachTask(job, quantity, currentTime);
+                reachIndex = getReachTask(job, quantity, currentTime, runIndex);
                 if (reachIndex != -1) {
                     continue;
                 }
@@ -72,7 +72,7 @@ void SJFplus(JOB job[], int quantity) {
                 job[runIndex].runtime = currentTime - job[runIndex].reachTime;
                 roundTime += job[runIndex].runtime;
                 printf("%-8d\t%-8d\t%-8d\t%-8d\n", job[runIndex].id, job[runIndex].reachTime, job[runIndex].startTime, job[runIndex].runtime);
-                wirtExcel(job, 4, runIndex);
+                wirtExcel(job, 4, runIndex, 0);
                 runIndex = getNextTask(job, quantity, currentTime);
                 break;
             }
@@ -81,5 +81,6 @@ void SJFplus(JOB job[], int quantity) {
 
     }
     printf("--------------------------------------------------------\n");
-    printf("平均周转时间:%.2lf\n", roundTime/(double)quantity);
+    printf("平均周转时间:%.2lf\n\n", roundTime/(double)quantity);
+    wirtExcel(job, 5, 0, roundTime/(double)quantity);
 }

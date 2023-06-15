@@ -66,9 +66,10 @@ void SJF(JOB job[], int quantity) {
 		pjzztime+=job[i].runtime;
         printf("%-8d\t%-8d\t%-8d\t%-8d\t%-8d\n",
             job[i].id, job[i].reachTime, job[i].needTime, job[i].endtime, job[i].runtime);
-        wirtExcel(job, 3, i);
+        wirtExcel(job, 3, i, 0);
     }
 	pjzztime=pjzztime*1.0/quantity;
     printf("------------------------------------------------------------------------\n");
 	printf("平均周转时间:%.2f\n\n",pjzztime);
+    wirtExcel(job, 5, 0, pjzztime);
 }
